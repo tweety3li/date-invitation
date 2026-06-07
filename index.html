@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Invitation ❤️</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+}
+
+.card{
+background:white;
+padding:35px;
+border-radius:25px;
+text-align:center;
+width:400px;
+box-shadow:0 10px 35px rgba(0,0,0,0.25);
+z-index:10;
+animation:fadeIn .8s ease;
+}
+
+h1,h2{
+color:#ff4f81;
+margin-bottom:15px;
+}
+
+p{
+margin-top:10px;
+line-height:1.6;
+}
+
+button{
+padding:12px 28px;
+border:none;
+border-radius:12px;
+font-size:16px;
+cursor:pointer;
+margin:8px;
+transition:0.3s;
+}
+
+#yesBtn{
+background:#28a745;
+color:white;
+}
+
+#yesBtn:hover{
+transform:scale(1.05);
+}
+
+#noBtn{
+background:#dc3545;
+color:white;
+position:relative;
+}
+
+input{
+width:90%;
+padding:12px;
+margin:10px 0;
+border-radius:10px;
+border:1px solid #ccc;
+}
+
+.hidden{
+display:none;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.heart{
+position:absolute;
+bottom:-20px;
+font-size:22px;
+animation:floatUp linear infinite;
+pointer-events:none;
+}
+
+@keyframes floatUp{
+from{
+transform:translateY(0);
+opacity:1;
+}
+to{
+transform:translateY(-110vh);
+opacity:0;
+}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card" id="questionBox">
+<h1>Will You Go On A Date With Me? ❤️</h1>
+<p>I have a very important question for you.</p>
+
+<button id="yesBtn">Yes 💕</button> <button id="noBtn">No 😅</button>
+
+</div>
+
+<div class="card hidden" id="dateBox">
+<h2>Select Date & Time 📅</h2>
+
+<input type="date" id="datePicker">
+<input type="time" id="timePicker">
+
+<br>
+
+<button id="confirmBtn">Confirm ❤️</button>
+
+</div>
+
+<div class="card hidden" id="messageBox">
+<h2>It's A Date! ❤️</h2>
+
+<p id="finalMessage"></p>
+</div>
+
+<script>
+
+function createHeart(){
+
+const heart=document.createElement("div");
+
+heart.classList.add("heart");
+
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.animationDuration=
+(Math.random()*4+4)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},8000);
+
+}
+
+setInterval(createHeart,350);
+
+const noBtn=document.getElementById("noBtn");
+
+function moveButton(){
+
+const maxX=window.innerWidth-120;
+const maxY=window.innerHeight-60;
+
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*maxX+"px";
+noBtn.style.top=Math.random()*maxY+"px";
+
+}
+
+noBtn.addEventListener("mouseover",moveButton);
+noBtn.addEventListener("click",moveButton);
+
+document.getElementById("yesBtn").onclick=function(){
+
+document.getElementById("questionBox")
+.classList.add("hidden");
+
+document.getElementById("dateBox")
+.classList.remove("hidden");
+
+};
+
+document.getElementById("confirmBtn").onclick=function(){
+
+const date=
+document.getElementById("datePicker").value;
+
+const time=
+document.getElementById("timePicker").value;
+
+if(!date || !time){
+
+alert("Please select a date and time.");
+
+return;
+
+}
+
+document.getElementById("dateBox")
+.classList.add("hidden");
+
+document.getElementById("messageBox")
+.classList.remove("hidden");
+
+document.getElementById("finalMessage")
+.innerHTML=
+"Thank you for saying YES! ❤️<br><br>" +
+"I can't wait to see you on:<br><b>" +
+date +
+"</b><br>at<br><b>" +
+time +
+"</b><br><br>It's going to be a wonderful day! ✨";
+
+};
+
+</script>
+
+</body>
+</html>
